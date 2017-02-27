@@ -1,8 +1,12 @@
 package hu.kesik.tutorials.distedu.model;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class Course implements Serializable {
+@XmlRootElement(name="course")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Course{
 
 	private String name;
 	private String description;

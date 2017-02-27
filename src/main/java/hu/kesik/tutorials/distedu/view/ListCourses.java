@@ -1,25 +1,24 @@
 package hu.kesik.tutorials.distedu.view;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import hu.kesik.tutorials.distedu.model.Course;
+import hu.kesik.tutorials.distedu.model.Courses;
 
 public class ListCourses extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,34 +29,14 @@ public class ListCourses extends HttpServlet {
 	}
 
 	public void init() {
-		List<Course> courseList = new ArrayList<Course>();
-
-		String resource = "/WEB-INF/catalog.txt";
-		InputStream is = this.getServletContext().getResourceAsStream(resource);
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-		while (true) {
-			String line = null;
-			try {
-				line = br.readLine();
-				if (line == null)
-					break;
-				StringTokenizer stk = new StringTokenizer(line, "#");
-				Course course = new Course();
-				course.setName(stk.nextToken());
-				course.setDescription(stk.nextToken());
-				course.setPrice(Double.parseDouble(stk.nextToken()));
-				courseList.add(course);
-			} catch (IOException e) {
-				LOGGER.error(e.getMessage());
-			}
-		}
-
-		this.getServletContext().setAttribute("courseCounter", courseList.size());
-		this.getServletContext().setAttribute("courseList", courseList);
-		LOGGER.debug("Courses loaded! courseCounter=" + this.getServletContext().getAttribute("courseCounter"));
+		String resource = "/WEB-INF/catalog.xml";
 		try {
-			br.close();
+			JAXBContext context = JAXBContext.newInstance(Courses.class);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Courses courses = (Courses) unmarshaller.unmarshal(new File(this.getServletContext().getResource(resource).getPath()));
+			
+			this.getServletContext().setAttribute("courseCount", courses.getCourses().size());
+			this.getServletContext().setAttribute("courseList", courses.getCourses());		
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
@@ -76,7 +55,7 @@ public class ListCourses extends HttpServlet {
 			out.println("<body>");
 			out.println("<h1> Course list </h1>");
 			out.println("<ul>");
-			List<Course> courselist = (List<Course>) this.getServletContext().getAttribute("courseList");
+			List<Course> courselist = (List<Course>) this.getServletContext().getAttribute("courseList");	
 			Iterator<Course> it = courselist.iterator();
 			while (it.hasNext()) {
 				out.println("<li>" + it.next() + "</li>");
@@ -96,22 +75,19 @@ public class ListCourses extends HttpServlet {
 	}
 
 	public void destroy() {
-		int coursecounter = (Integer) this.getServletContext().getAttribute("courseCounter");
-		List<Course> courselist = (List<Course>) this.getServletContext().getAttribute("courseList");
-		if (coursecounter != courselist.size()) {
-			String resource = "/WEB-INF/catalog.txt";
-			String path = this.getServletContext().getRealPath(resource);
-			LOGGER.debug("destroyPATH:" + path);
-			try {
-				PrintWriter pw = new PrintWriter(new FileWriter(path));
-				Iterator<Course> it = courselist.iterator();
-				while (it.hasNext())
-					pw.println(it.next());
-				pw.close();
-			} catch (Exception e) {
-				LOGGER.error(e.getMessage());
-			}
+		Courses courses = new Courses();
+		courses.setCourses((List<Course>)this.getServletContext().getAttribute("courseList"));
+		
+		String resource = "/WEB-INF/catalog.xml";
+		try {
+			JAXBContext context = JAXBContext.newInstance(Courses.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(courses, new File(this.getServletContext().getResource(resource).getPath()));
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 		}
+		
 	}
 
 }
