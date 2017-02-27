@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<courses>
+	<course>
+		<name>Java SE</name>
+		<description>Java Standard Edition</description>
+		<price>1000</price>
+	</course>
+	<course>
+		<name>Java Servlets and JSP</name>
+		<description>Java Web Programming</description>
+		<price>1500</price>
+	</course>
+	<course>
+		<name>Java EE</name>
+		<description>Java Enterprise Edition</description>
+		<price>2000</price>
+	</course>
+</courses>

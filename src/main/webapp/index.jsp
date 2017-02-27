@@ -1,6 +1,8 @@
 <html>
 <head></head>
 <body>
-Hello World!
+	<ul>
+		<li><a href="list_courses.view">List Courses</a></li>
+	</ul>
 </body>
 </html>
