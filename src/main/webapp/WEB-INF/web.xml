@@ -9,20 +9,30 @@
     <servlet-class>hu.kesik.tutorials.distedu.view.ListCourses</servlet-class>
     <loadonstartup>1</loadonstartup>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>ListCourses</servlet-name>
-    <url-pattern>/list_courses.view</url-pattern>
-  </servlet-mapping>
-  
    <servlet>
     <description></description>
     <display-name>AddCourse</display-name>
     <servlet-name>AddCourse</servlet-name>
     <servlet-class>hu.kesik.tutorials.distedu.control.AddCourse</servlet-class>
   </servlet>
-  <servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetPreferences</display-name>
+    <servlet-name>SetPreferences</servlet-name>
+    <servlet-class>hu.kesik.tutorials.distedu.control.SetPreferences</servlet-class>
+  </servlet>
+  
+    <servlet-mapping>
+    <servlet-name>ListCourses</servlet-name>
+    <url-pattern>/list_courses.view</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
     <servlet-name>AddCourse</servlet-name>
     <url-pattern>/add_course.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SetPreferences</servlet-name>
+    <url-pattern>/set_preferences.do</url-pattern>
   </servlet-mapping>
   
 </web-app>

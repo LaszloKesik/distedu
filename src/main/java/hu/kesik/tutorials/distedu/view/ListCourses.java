@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -46,6 +47,10 @@ public class ListCourses extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF8");
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		boolean showDescription = (session.getAttribute("showDescription") !=null) ? (Boolean) session.getAttribute("showDescription"): false;
+		boolean showPrice = (session.getAttribute("showPrice") !=null) ? (Boolean) session.getAttribute("showPrice"): false;
+		
 		try {
 			out.println("<html>");
 			out.println("<head>");
@@ -57,7 +62,12 @@ public class ListCourses extends HttpServlet {
 			List<Course> courselist = (List<Course>) this.getServletContext().getAttribute("courseList");	
 			Iterator<Course> it = courselist.iterator();
 			while (it.hasNext()) {
-				out.println("<li>" + it.next() + "</li>");
+				Course course = it.next();
+				out.println("<li>");
+				out.println("<b>" + course.getName() + "</b>\t");
+				if(showDescription) out.println(course.getDescription() + "\t");
+				if(showPrice) out.println(course.getPrice() + "\t");
+				out.println("</li>");
 			}
 			out.println("</ul>");
 			out.println("</body>");
