@@ -1,10 +1,10 @@
 <%
 boolean showDescription = false;
-if(request.getSession().getAttribute("showDescription")!= null){
+if(session.getAttribute("showDescription")!= null){
 	showDescription = (Boolean) request.getSession().getAttribute("showDescription");
 }
 boolean showPrice = false;
-if(request.getSession().getAttribute("showPrice")!= null){
+if(session.getAttribute("showPrice")!= null){
 	showPrice = (Boolean) request.getSession().getAttribute("showPrice");
 }
 %>

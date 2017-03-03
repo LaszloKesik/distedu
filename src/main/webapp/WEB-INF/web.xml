@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <display-name>DistEdu - Java Web Book</display-name>
-  
-  <servlet>
-    <description></description>
-    <display-name>ListCourses</display-name>
-    <servlet-name>ListCourses</servlet-name>
-    <servlet-class>hu.kesik.tutorials.distedu.view.ListCourses</servlet-class>
-    <loadonstartup>1</loadonstartup>
-  </servlet>
-   <servlet>
-    <description></description>
-    <display-name>AddCourse</display-name>
-    <servlet-name>AddCourse</servlet-name>
-    <servlet-class>hu.kesik.tutorials.distedu.control.AddCourse</servlet-class>
-  </servlet>
-  <servlet>
-    <description></description>
-    <display-name>SetPreferences</display-name>
-    <servlet-name>SetPreferences</servlet-name>
-    <servlet-class>hu.kesik.tutorials.distedu.control.SetPreferences</servlet-class>
-  </servlet>
-  
-    <servlet-mapping>
-    <servlet-name>ListCourses</servlet-name>
-    <url-pattern>/list_courses.view</url-pattern>
-  </servlet-mapping>
-   <servlet-mapping>
-    <servlet-name>AddCourse</servlet-name>
-    <url-pattern>/add_course.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>SetPreferences</servlet-name>
-    <url-pattern>/set_preferences.do</url-pattern>
-  </servlet-mapping>
-  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>DistEdu - Java Web Book</display-name>
+
+<!-- LISTENERS -->
+	<listener>
+		<description>ServletContextListener</description>
+		<listener-class>hu.kesik.tutorials.distedu.listener.ApplicationListener</listener-class>
+	</listener>
+	<listener>
+		<description>HttpSessionListener</description>
+		<listener-class>hu.kesik.tutorials.distedu.listener.SessionCounterListener</listener-class>
+	</listener>
+
+<!-- SERVLETS -->
+	<servlet>
+		<description></description>
+		<display-name>AddCourse</display-name>
+		<servlet-name>AddCourse</servlet-name>
+		<servlet-class>hu.kesik.tutorials.distedu.control.AddCourse</servlet-class>
+	</servlet>
+	<servlet>
+		<description></description>
+		<display-name>SetPreferences</display-name>
+		<servlet-name>SetPreferences</servlet-name>
+		<servlet-class>hu.kesik.tutorials.distedu.control.SetPreferences</servlet-class>
+	</servlet>
+
+<!-- SERVLET MAPPINGS -->
+	<servlet-mapping>
+		<servlet-name>AddCourse</servlet-name>
+		<url-pattern>/add_course.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SetPreferences</servlet-name>
+		<url-pattern>/set_preferences.do</url-pattern>
+	</servlet-mapping>
+
+
+<!-- LOG4J2 CONFIG -->
+	<context-param>
+		<param-name>log4jContextName</param-name>
+		<param-value>DistEdu</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jConfiguration</param-name>
+		<param-value>file:///WEB-INF/classes/log4j2.xml</param-value>
+	</context-param>
+	 
+
 </web-app>

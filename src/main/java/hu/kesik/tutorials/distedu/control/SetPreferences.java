@@ -14,8 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 public class SetPreferences extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	final static Logger LOGGER = LogManager.getRootLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

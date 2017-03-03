@@ -17,8 +17,7 @@ import hu.kesik.tutorials.distedu.model.Course;
 
 public class AddCourse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	final static Logger LOGGER = LogManager.getRootLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +48,7 @@ public class AddCourse extends HttpServlet {
 			List<Course> courseList = (List<Course>) this.getServletContext().getAttribute("courseList");
 			courseList.add(course);
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("list_courses.view");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);
 		}
 
