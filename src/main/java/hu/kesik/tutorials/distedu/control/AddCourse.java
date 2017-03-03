@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import hu.kesik.tutorials.distedu.dao.CourseDAO;
 import hu.kesik.tutorials.distedu.model.Course;
 
 public class AddCourse extends HttpServlet {
@@ -44,9 +45,12 @@ public class AddCourse extends HttpServlet {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
 			requestDispatcher.forward(request, response);
 		}else{
-			Course course = new Course(name,description,price);
-			List<Course> courseList = (List<Course>) this.getServletContext().getAttribute("courseList");
-			courseList.add(course);
+			// Inserting course to the CourseList
+			Course course = new Course(-1,name,description,price);
+			CourseDAO courseDao = new CourseDAO();
+			boolean result = courseDao.insertCourse(course);
+			//List<Course> courseList = (List<Course>) this.getServletContext().getAttribute("courseList");
+			//courseList.add(course);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);

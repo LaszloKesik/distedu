@@ -1,3 +1,0 @@
-Java SE#Java Standard Edition#1000
-Java Servlets and JSP#Java Web Programming#1500
-Java EE#Java Enterprise Edition#2000

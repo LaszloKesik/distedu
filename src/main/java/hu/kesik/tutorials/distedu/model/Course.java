@@ -1,26 +1,32 @@
 package hu.kesik.tutorials.distedu.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
-@XmlRootElement(name="course")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Course{
+public class Course implements Serializable{
 
+	private int id;
 	private String name;
 	private String description;
 	private double price;
 
 	public Course() {
-		this("", "", 0.0);
+		this(-1, "", "", 0.0);
 	}
 
-	public Course(String name, String description, double price) {
+	public Course(int id, String name, String description, double price) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

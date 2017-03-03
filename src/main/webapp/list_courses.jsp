@@ -1,7 +1,14 @@
 <%@page contentType="text/html; charset=ISO-8859-1"%>
-<%@page import="java.util.*, hu.kesik.tutorials.distedu.model.Course"%>
+<%@page import="java.util.*,
+ hu.kesik.tutorials.distedu.model.Course,
+ hu.kesik.tutorials.distedu.dao.CourseDAO"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%
+CourseDAO courseDao = new CourseDAO();
+List<Course> courseList = courseDao.getAllCourses();
+pageContext.setAttribute("courseList", courseList);
+%>
 <html>
 <body>
 	<table>

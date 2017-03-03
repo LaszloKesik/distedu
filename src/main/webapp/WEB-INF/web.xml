@@ -6,23 +6,23 @@
 
 <!-- LISTENERS -->
 	<listener>
-		<description>ServletContextListener</description>
-		<listener-class>hu.kesik.tutorials.distedu.listener.ApplicationListener</listener-class>
-	</listener>
-	<listener>
 		<description>HttpSessionListener</description>
 		<listener-class>hu.kesik.tutorials.distedu.listener.SessionCounterListener</listener-class>
 	</listener>
 
 <!-- SERVLETS -->
 	<servlet>
-		<description></description>
 		<display-name>AddCourse</display-name>
 		<servlet-name>AddCourse</servlet-name>
 		<servlet-class>hu.kesik.tutorials.distedu.control.AddCourse</servlet-class>
 	</servlet>
 	<servlet>
 		<description></description>
+		<display-name>DeleteCourses</display-name>
+		<servlet-name>DeleteCourses</servlet-name>
+		<servlet-class>hu.kesik.tutorials.distedu.control.DeleteCourses</servlet-class>
+	</servlet>
+	<servlet>
 		<display-name>SetPreferences</display-name>
 		<servlet-name>SetPreferences</servlet-name>
 		<servlet-class>hu.kesik.tutorials.distedu.control.SetPreferences</servlet-class>
@@ -32,6 +32,10 @@
 	<servlet-mapping>
 		<servlet-name>AddCourse</servlet-name>
 		<url-pattern>/add_course.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteCourses</servlet-name>
+		<url-pattern>/delete_courses.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>SetPreferences</servlet-name>
@@ -48,6 +52,6 @@
 		<param-name>log4jConfiguration</param-name>
 		<param-value>file:///WEB-INF/classes/log4j2.xml</param-value>
 	</context-param>
-	 
+
 
 </web-app>
